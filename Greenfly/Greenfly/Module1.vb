@@ -25,13 +25,12 @@ Module Module1
         Adults(2) = Console.ReadLine()
         Console.WriteLine("Enter the Senile survival rate")
         Seniles(2) = Console.ReadLine()
-        Console.WriteLine("Enter the disease rate")
         Console.WriteLine("How many Generations?")
         generations = Console.ReadLine()
         start(generations)
 
     End Sub
-    Function start(generations As Integer)
+    Public Function start(generations As Integer)
         Randomize()
         Dim Values(generations - 1)() As Decimal
         For i = 1 To generations
@@ -66,25 +65,37 @@ Module Module1
             Values(i - 1)(3) = Math.Round(total)
 
         Next
-        Console.WriteLine("Enter Name of File to be Saved: ")
-        Dim savename As String = Console.ReadLine()
-        If File.Exists(savename & ".csv") Then
-            Console.WriteLine("File already exists, Would you like to overwrite it? y/n")
-            Dim temp As String = Console.ReadLine()
-            If temp = "n" Then
-                Return True
+
+        Dim savename As String = Nothing
+        Dim temp2 As Boolean = False
+        While temp2 = False
+
+            Console.WriteLine("Enter File Name:")
+            savename = Console.ReadLine()
+            savename = (savename & ".csv")
+            If File.Exists(savename) Then
+                Console.WriteLine("File already Exists. Overwrite y/n?")
+                Dim temp As String = Console.ReadLine()
+                If temp = "y" Then
+                    temp2 = True
+                ElseIf temp = "n" Then
+                    temp2 = False
+                End If
+            Else
+                temp2 = True
             End If
-        End If
+
+
+        End While
         Dim csv As String = Nothing
+        csv = csv & "Juviniles, Adults, Seniles, Total" & Environment.NewLine
         For i = 1 To generations
 
-            csv = csv & String.Join(",", Values(i - 1)) & Environment.NewLine
-
-            Console.WriteLine(csv)
+            csv = csv & String.Join(",", values(i - 1)) & Environment.NewLine
 
 
         Next
-        My.Computer.FileSystem.WriteAllText(savename & ".csv", csv, False)
+        My.Computer.FileSystem.WriteAllText(savename, csv, False)
 
         Return True
     End Function

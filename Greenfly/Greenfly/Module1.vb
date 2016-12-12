@@ -1,13 +1,13 @@
 ﻿Imports System.IO
 Module Module1
 
-    Dim Seniles As Decimal() = {0, 0, 0}
-    Dim Adults As Decimal() = {0, 2, 1}
-    Dim Juveniles As Decimal() = {0, 1, 1}
+    Dim Seniles As ULong() = {0, 0, 0}
+    Dim Adults As ULong() = {0, 2, 1}
+    Dim Juveniles As ULong() = {0, 1, 1}
     Dim Disease As Boolean
-    Dim DiseaseTrigerStart As Decimal = 100
-    Dim DiseaseTrigerEnd As Decimal = 50
-    Dim total As Integer
+    Dim DiseaseTrigerStart As ULong = 200
+    Dim DiseaseTrigerEnd As ULong = 100
+    Dim total As ULong
 
     Sub Main()
         Dim generations As Decimal
@@ -32,7 +32,7 @@ Module Module1
     End Sub
     Public Function start(generations As Integer)
         Randomize()
-        Dim Values(generations - 1)() As Decimal
+        Dim Values(generations - 1)() As ULong
         For i = 1 To generations
             If total >= DiseaseTrigerStart And Disease = False Then
                 Disease = True
@@ -44,7 +44,9 @@ Module Module1
             Adults(0) *= Adults(2)
             Seniles(0) *= Seniles(2)
             If Disease Then
-                Dim diseaseFactor As Decimal = CInt(Math.Floor((0.5 - 0.2 + 1) * Rnd())) + 0.2
+                Dim diseaseFactor As Decimal = (CInt(Math.Floor((5 - 2 + 1) * Rnd())) + 2) / 10
+                Console.WriteLine(diseaseFactor)
+                diseaseFactor = (1 - diseaseFactor)
                 Juveniles(0) *= diseaseFactor
                 Seniles(0) *= diseaseFactor
             End If
@@ -52,13 +54,63 @@ Module Module1
             Seniles(0) += Adults(0) * Adults(2)
             Adults(0) = Juveniles(0)
             Juveniles(0) = _Adults * Adults(1)
+            Seniles(0) = Math.Round(Seniles(0))
+            Adults(0) = Math.Round(Adults(0))
+            Juveniles(0) = Math.Round(Juveniles(0))
             Console.Write(Math.Round(Juveniles(0)) & " ")
             Console.Write(Math.Round(Adults(0)) & " ")
             Console.Write(Math.Round(Seniles(0)) & " ")
-            total = Juveniles(0) + Adults(0) + Seniles(0)
+            Try
+                total = Juveniles(0) + Adults(0) + Seniles(0)
+
+            Catch OverflowException As Exception
+                Dim temp3 As Boolean = False
+                Dim savename2 As String = Nothing
+                Console.WriteLine("Error: Total value too large to continue, Would you like to save the file? y/n")
+                While temp3 = False
+                    Dim temp As String = Console.ReadLine()
+                    If temp = "y" Then
+                        temp3 = True
+                        Dim temp4 As Boolean = False
+
+                        While temp4 = False
+
+                            Console.WriteLine("Enter File Name:")
+                            savename2 = Console.ReadLine()
+                            savename2 = (savename2 & ".csv")
+                            If File.Exists(savename2) Then
+                                Console.WriteLine("File already Exists. Overwrite y/n?")
+                                Dim temp5 As String = Console.ReadLine()
+                                If temp5 = "y" Then
+                                    temp4 = True
+                                    Dim csv2 As String = Nothing
+                                    csv2 = csv2 & "Juviniles, Adults, Seniles, Total" & Environment.NewLine
+                                    For k = 1 To generations - 1
+                                        csv2 = csv2 & String.Join(",", Values(k - 1)) & Environment.NewLine
+                                    Next
+                                    My.Computer.FileSystem.WriteAllText(savename2, csv2, False)
+                                ElseIf temp5 = "n" Then
+                                    temp4 = False
+                                End If
+                            Else
+                                Dim csv1 As String = Nothing
+                                csv1 = csv1 & "Juviniles, Adults, Seniles, Total" & Environment.NewLine
+                                For k = 1 To generations - 1
+                                    csv1 = csv1 & String.Join(",", Values(k - 1)) & Environment.NewLine
+                                Next
+                                My.Computer.FileSystem.WriteAllText(savename2, csv1, False)
+                                temp4 = True
+                            End If
+                        End While
+                    ElseIf temp = "n" Then
+                        temp3 = True
+                        Environment.Exit(0.1)
+                    End If
+                End While
+            End Try
             Console.Write(Math.Round(total))
             Console.WriteLine()
-            Values(i - 1) = New Decimal(3) {}
+            Values(i - 1) = New ULong(3) {}
             Values(i - 1)(0) = Math.Round(Juveniles(0))
             Values(i - 1)(1) = Math.Round(Adults(0))
             Values(i - 1)(2) = Math.Round(Seniles(0))
@@ -90,10 +142,7 @@ Module Module1
         Dim csv As String = Nothing
         csv = csv & "Juviniles, Adults, Seniles, Total" & Environment.NewLine
         For i = 1 To generations
-
-            csv = csv & String.Join(",", values(i - 1)) & Environment.NewLine
-
-
+            csv = csv & String.Join(",", Values(i - 1)) & Environment.NewLine
         Next
         My.Computer.FileSystem.WriteAllText(savename, csv, False)
 

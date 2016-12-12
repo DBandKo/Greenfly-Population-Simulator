@@ -17,3 +17,4 @@ F:\VB.Net\Greenfly\Greenfly\obj\Debug\Greenfly.vbproj.GenerateResource.Cache
 F:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.exe
 F:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.pdb
 F:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.xml
+U:\My Documents\Visual Studio 2012\Projects\Greenfly\Greenfly\obj\Debug\Greenfly.vbprojResolveAssemblyReference.cache

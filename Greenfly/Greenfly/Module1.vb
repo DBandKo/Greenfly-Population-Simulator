@@ -1,13 +1,13 @@
 ﻿Imports System.IO
 Module Module1
 
-    Dim Seniles As ULong() = {0, 0, 0}
-    Dim Adults As ULong() = {0, 2, 1}
-    Dim Juveniles As ULong() = {0, 1, 1}
+    Dim Seniles As Decimal() = {0, 0, 0}
+    Dim Adults As Decimal() = {0, 2, 1}
+    Dim Juveniles As Decimal() = {0, 1, 1}
     Dim Disease As Boolean
-    Dim DiseaseTrigerStart As ULong = 200
-    Dim DiseaseTrigerEnd As ULong = 100
-    Dim total As ULong
+    Dim DiseaseTrigerStart As Decimal = 200
+    Dim DiseaseTrigerEnd As Decimal = 100
+    Dim total As Decimal
 
     Sub Main()
         Dim generations As Decimal
@@ -32,7 +32,7 @@ Module Module1
     End Sub
     Public Function start(generations As Integer)
         Randomize()
-        Dim Values(generations - 1)() As ULong
+        Dim Values(generations - 1)() As Decimal
         For i = 1 To generations
             If total >= DiseaseTrigerStart And Disease = False Then
                 Disease = True
@@ -110,7 +110,7 @@ Module Module1
             End Try
             Console.Write(Math.Round(total))
             Console.WriteLine()
-            Values(i - 1) = New ULong(3) {}
+            Values(i - 1) = New Decimal(3) {}
             Values(i - 1)(0) = Math.Round(Juveniles(0))
             Values(i - 1)(1) = Math.Round(Adults(0))
             Values(i - 1)(2) = Math.Round(Seniles(0))

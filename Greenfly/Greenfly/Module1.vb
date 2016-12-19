@@ -8,9 +8,52 @@ Module Module1
     Dim DiseaseTrigerStart As Decimal = 200
     Dim DiseaseTrigerEnd As Decimal = 100
     Dim total As Decimal
+    Dim generations As Decimal
+
 
     Sub Main()
-        Dim generations As Decimal
+        Console.WriteLine("Greenfly Population Simulator")
+        Console.WriteLine("~~~~~MENU~~~~~")
+        Console.WriteLine("")
+        Console.WriteLine("1: Set the starting values ( Do this before running the simulation )")
+        Console.WriteLine("2: Print the starting values")
+        Console.WriteLine("3: Run the simulation")
+        Console.WriteLine("4: Exit the program")
+        Dim temp As String = Console.ReadLine()
+        If temp = 1 Then
+            Setvalues()
+            Main()
+        ElseIf temp = 2 Then
+            Printvalues()
+            Main()
+        ElseIf temp = 3 Then
+            If IsNothing(Seniles(0)) Then
+                Console.WriteLine("Error: No values were found, Try setting the values at the menu.")
+                Main()
+            Else
+                start(generations)
+                Main()
+            End If
+        ElseIf temp = 4 Then
+            Environment.Exit(0.0)
+        End If
+
+    End Sub
+    Function Printvalues()
+        Console.clear
+        Console.WriteLine("Amount of Juviniles: " & Juveniles(0))
+        Console.WriteLine("Amount of Adults: " & Adults(0))
+        Console.WriteLine("Amount of Seniles: " & Seniles(0))
+        Console.WriteLine("Adult Birthrate: " & Adults(1))
+        Console.WriteLine("Juvinile Survival Rate: " & Juveniles(2))
+        Console.WriteLine("Adult Survival Rate: " & Adults(2))
+        Console.WriteLine("Senile Survival Rate: " & Seniles(2))
+        Console.WriteLine("Total Generations:" & generations)
+
+        Return True
+    End Function
+    Function Setvalues()
+        Console.Clear()
         Console.WriteLine("Enter the starting population of the Juviniles")
         Juveniles(0) = Console.ReadLine()
         Console.WriteLine("Enter the starting population of the Adults")
@@ -27,9 +70,8 @@ Module Module1
         Seniles(2) = Console.ReadLine()
         Console.WriteLine("How many Generations?")
         generations = Console.ReadLine()
-        start(generations)
-
-    End Sub
+        Return True
+    End Function
     Public Function start(generations As Integer)
         Randomize()
         Dim Values(generations - 1)() As Decimal

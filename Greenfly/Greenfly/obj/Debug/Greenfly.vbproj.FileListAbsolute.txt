@@ -18,13 +18,4 @@ F:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.exe
 F:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.pdb
 F:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.xml
 U:\My Documents\Visual Studio 2012\Projects\Greenfly\Greenfly\obj\Debug\Greenfly.vbprojResolveAssemblyReference.cache
-E:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.exe.config
-E:\VB.Net\Greenfly\Greenfly\obj\Debug\Greenfly.exe
-E:\VB.Net\Greenfly\Greenfly\obj\Debug\Greenfly.xml
-E:\VB.Net\Greenfly\Greenfly\obj\Debug\Greenfly.pdb
-E:\VB.Net\Greenfly\Greenfly\obj\Debug\Greenfly.vbprojResolveAssemblyReference.cache
-E:\VB.Net\Greenfly\Greenfly\obj\Debug\ConsoleApplication1.Resources.resources
-E:\VB.Net\Greenfly\Greenfly\obj\Debug\Greenfly.vbproj.GenerateResource.Cache
-E:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.exe
-E:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.pdb
-E:\VB.Net\Greenfly\Greenfly\bin\Debug\Greenfly.xml
+U:\My Documents\Visual Studio 2012\Projects\Greenfly\Greenfly\obj\Debug\Greenfly.vbproj.ResolveComReference.cache
